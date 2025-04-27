@@ -1,8 +1,8 @@
 # Pretrained diffusers model path.
-pretrained_model_path: "/Users/rui/data/models/zeroscope_v2_576w/"
+pretrained_model_path: "./models/zeroscope_v2_576w/"
 
 # The folder where your training outputs will be placed.
-output_dir: "./outputs/train"
+output_dir: "./outputs/myTrain"
 
 dataset_types:
   - 'folder'
@@ -100,7 +100,7 @@ learning_rate: 5e-4
 adam_weight_decay: 1e-4
 
 # Maximum number of train steps. Model is saved after training.
-max_train_steps: 3000
+max_train_steps: 500
 
 # Saves a model every nth step.
 checkpointing_steps: 100

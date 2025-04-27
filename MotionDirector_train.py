@@ -49,8 +49,12 @@ already_printed_trainables = False
 logger = get_logger(__name__, log_level="INFO")
 
 
-def create_logging(logging, logger, accelerator):
+def create_logging(logging, logger, accelerator, out_dir):
+    log_file = os.path.join(out_dir, "train.log")
+    handlers = [logging.StreamHandler(), logging.FileHandler(log_file, mode='w')]
+    
     logging.basicConfig(
+        handlers=handlers,
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
         datefmt="%m/%d/%Y %H:%M:%S",
         level=logging.INFO,
@@ -547,15 +551,16 @@ def main(
         project_dir=output_dir
     )
 
-    # Make one log on every process with the configuration for debugging.
-    create_logging(logging, logger, accelerator)
-
     # Initialize accelerate, transformers, and diffusers warnings
     accelerate_set_verbose(accelerator)
 
     # Handle the output folder creation
     if accelerator.is_main_process:
         output_dir = create_output_folders(output_dir, config)
+    
+    # Make one log on every process with the configuration for debugging.
+    # Change order to save log file.
+    create_logging(logging, logger, accelerator, output_dir)
 
     # Load scheduler, tokenizer and models.
     noise_scheduler, tokenizer, text_encoder, vae, unet = load_primary_models(pretrained_model_path)

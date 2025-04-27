@@ -1,8 +1,8 @@
 # Pretrained diffusers model path.
-pretrained_model_path: "/Users/rui/data/models/zeroscope_v2_576w/"
+pretrained_model_path: "./models/zeroscope_v2_576w/"
 
 # The folder where your training outputs will be placed.
-output_dir: "./outputs/train"
+output_dir: "./outputs/myTrain"
 
 # You can train multiple datasets at once. They will be joined together for training.
 # Simply remove the line you don't need, or keep them all for mixed training.
