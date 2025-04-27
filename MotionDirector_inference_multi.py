@@ -274,7 +274,8 @@ if __name__ == "__main__":
     assert os.path.exists(args.temporal_path_folder)
 
     if args.noise_prior > 0:
-        latents_folder = f"{os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(args.temporal_path_folder))))}/cached_latents"
+        #latents_folder = f"{os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(args.temporal_path_folder))))}/cached_latents"
+        latents_folder = f"{os.path.dirname(os.path.dirname(os.path.dirname(args.temporal_path_folder)))}/cached_latents"
         latents_path = f"{latents_folder}/{random.choice(os.listdir(latents_folder))}"
         assert os.path.exists(latents_path)
     else:

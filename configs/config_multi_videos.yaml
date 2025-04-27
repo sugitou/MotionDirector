@@ -55,7 +55,7 @@ train_data:
   n_sample_frames: 16
 
   # 'multiple videos'
-  path: "./test_data/bicycle-1/"
+  path: "./test_data/bicycle/"
 
   # The prompt when using a a single video file
   fallback_prompt: "A person is riding a bicycle."
@@ -106,7 +106,7 @@ max_train_steps: 500
 checkpointing_steps: 100
 
 # How many steps to do for validation if sample_preview is enabled.
-validation_steps: 500
+validation_steps: 100
 
 # Whether or not we want to use mixed precision with accelerate
 mixed_precision: "fp16"

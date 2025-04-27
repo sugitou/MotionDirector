@@ -7,6 +7,7 @@ import os
 import random
 import gc
 import copy
+import time
 
 from typing import Dict, Optional, Tuple
 from omegaconf import OmegaConf
@@ -747,6 +748,8 @@ def main(
     # Train!
     total_batch_size = train_batch_size * accelerator.num_processes * gradient_accumulation_steps
 
+    train_start_time = time.time()
+
     logger.info("***** Running training *****")
     logger.info(f"  Num examples = {len(train_dataset)}")
     logger.info(f"  Num Epochs = {num_train_epochs}")
@@ -1044,6 +1047,15 @@ def main(
             save_pretrained_model=save_pretrained_model
         )
     accelerator.end_training()
+
+    # Time to finish training
+    train_end_time = time.time()
+    elapsed_time = train_end_time - train_start_time
+
+    elapsed_hours = int(elapsed_time // 3600)
+    elapsed_minutes = int((elapsed_time % 3600) // 60)
+    elapsed_seconds = int(elapsed_time % 60)
+    logger.info(f"Training completed in {elapsed_hours}h {elapsed_minutes}m {elapsed_seconds}s")
 
 
 if __name__ == "__main__":
