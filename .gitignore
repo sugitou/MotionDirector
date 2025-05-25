@@ -1,6 +1,7 @@
 __pycache__/
 
 
+modivenv/
 models/
 outputs/train/
 outputs/myTrain/
