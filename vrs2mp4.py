@@ -14,18 +14,9 @@ reader = SyncVRSReader(vrs_file)
 
 # Check if the VRS file is valid
 for sid in reader.stream_ids:
-    print(f"stream_id: {sid.stream_id}, stream_type: {sid.stream_type}")
-
-# ストリーム一覧を取得
-# VIDEO ストリームを探す
-stream_id = None
-for sid in reader.stream_ids:
-    if sid.stream_type == RecordableTypeId.VIDEO:
-        stream_id = sid
-        break
-
-if stream_id is None:
-    raise RuntimeError("No VIDEO stream found.")
+    print(f"stream_id: {sid}")
+for sty in reader.record_types:
+    print(f"record_type: {sty}")
 
 # フレーム抽出
 frame_paths = []
