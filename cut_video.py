@@ -1,5 +1,5 @@
 from moviepy.video.io.VideoFileClip import VideoFileClip
-CHECKER = True 
+CHECKER = True
 
 if CHECKER == False:
     clip = VideoFileClip("../nymeria_dataset/20230607_s0_james_johnson_act0_e72nhq/Nymeria_v0.0_20230607_s0_james_johnson_act0_e72nhq_preview_rgb.mp4")
@@ -13,8 +13,8 @@ if CHECKER == False:
     print(f"Audio present: {clip.audio is not None}")
     print(f"File name: {clip.filename}")
 
-    short_clip = clip.subclipped(30, 60)
-    output_file = "output_short_30-60.mp4"
+    short_clip = clip.subclipped(30, 45)
+    output_file = "output_short_30-45.mp4"
     short_clip.write_videofile(output_file, codec="libx264")
 
     # Close the clip to release resources
@@ -22,7 +22,7 @@ if CHECKER == False:
 
 else:
     # Information about the short clip
-    s_clip = VideoFileClip("test_data/Nymeria/output_short_30-60.mp4")
+    s_clip = VideoFileClip("test_data/ucf101/Basketball/v_Basketball_g01_c01.avi")
 
     print(f"Short clip duration: {s_clip.duration} seconds")
     print(f"Short clip FPS: {s_clip.fps}")
