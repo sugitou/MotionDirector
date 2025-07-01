@@ -1,9 +1,9 @@
 #!/bin/bash
 
-python3 MotionDirector_inference.py \
+python MotionDirector_inference.py \
   --model ./models/zeroscope_v2_576w/ \
-  --prompt "A panda is playing basketball with another panda in a cozy living room." \
-  --checkpoint_folder ./outputs/myTrain/train_2025-06-23T14-16-03 \
-  --checkpoint_index 150 \
+  --prompt "A mokey is playing golf on the moon." \
+  --checkpoint_folder ./outputs/myTrain/train_ucf101_golf_8fps_A_person_is_playing_golf_400 \
+  --checkpoint_index 400 \
   --noise_prior 0. \
-  --seed 7192280
+  --seed 785490
