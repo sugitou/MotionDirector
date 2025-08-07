@@ -1,0 +1,24 @@
+==== Experiment ====
+datetime: 2025-08-07 19:20:57
+checkpoint_folder: ./outputs/myTrain/train_ucf101_HandstandWalking-short
+prompt: An athletic person does a yoga pose on a grassy hill under a vast blue sky.
+noise_prior: 0.1
+output_dir: ./outputs/inference/HandstandWalking/noise0.1
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 19:22:02
+checkpoint_folder: ./outputs/myTrain/train_ucf101_HandstandWalking-short
+prompt: A silver robot holds a steady handstand on a grassy hill under a vast blue sky.
+noise_prior: 0.1
+output_dir: ./outputs/inference/HandstandWalking/noise0.1
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 19:23:06
+checkpoint_folder: ./outputs/myTrain/train_ucf101_HandstandWalking-short
+prompt: An athletic person holds a steady handstand on a sandy beach under a few white cloud sky.
+noise_prior: 0.1
+output_dir: ./outputs/inference/HandstandWalking/noise0.1
+==== End ====
+

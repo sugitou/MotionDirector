@@ -1,24 +1,24 @@
 ==== Experiment ====
-datetime: 2025-08-07 18:37:07
+datetime: 2025-08-07 18:40:18
 checkpoint_folder: ./outputs/myTrain/train_ucf101_CleanAndJerk-short
 prompt: A strong man does jumping jacks with perfect form in a gym.
-noise_prior: 0.1
-output_dir: ./outputs/inference/CleanAndJerk/noise0.1
+noise_prior: 0.3
+output_dir: ./outputs/inference/CleanAndJerk/noise0.3
 ==== End ====
 
 ==== Experiment ====
-datetime: 2025-08-07 18:38:10
+datetime: 2025-08-07 18:41:22
 checkpoint_folder: ./outputs/myTrain/train_ucf101_CleanAndJerk-short
 prompt: A muscular alien performs an impressive snatch, lifting a heavy barbell overhead in a gym.
-noise_prior: 0.1
-output_dir: ./outputs/inference/CleanAndJerk/noise0.1
+noise_prior: 0.3
+output_dir: ./outputs/inference/CleanAndJerk/noise0.3
 ==== End ====
 
 ==== Experiment ====
-datetime: 2025-08-07 18:39:14
+datetime: 2025-08-07 18:41:58
 checkpoint_folder: ./outputs/myTrain/train_ucf101_CleanAndJerk-short
 prompt: A strong man performs an impressive snatch, lifting a heavy barbell overhead in front of Buckingham Palace.
-noise_prior: 0.1
-output_dir: ./outputs/inference/CleanAndJerk/noise0.1
+noise_prior: 0.3
+output_dir: ./outputs/inference/CleanAndJerk/noise0.3
 ==== End ====
 

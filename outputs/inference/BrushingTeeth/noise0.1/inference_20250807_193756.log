@@ -1,0 +1,24 @@
+==== Experiment ====
+datetime: 2025-08-07 19:38:18
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BrushingTeeth-short
+prompt: A young girl with long blonde hair is applying lipstick to her lips in a bathroom.
+noise_prior: 0.1
+output_dir: ./outputs/inference/BrushingTeeth/noise0.1
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 19:38:40
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BrushingTeeth-short
+prompt: A crystal skeleton is brushing its teeth in a bathroom.
+noise_prior: 0.1
+output_dir: ./outputs/inference/BrushingTeeth/noise0.1
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 19:39:44
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BrushingTeeth-short
+prompt: A young girl with long blonde hair is brushing her teeth at Heathrow Airport.
+noise_prior: 0.1
+output_dir: ./outputs/inference/BrushingTeeth/noise0.1
+==== End ====
+

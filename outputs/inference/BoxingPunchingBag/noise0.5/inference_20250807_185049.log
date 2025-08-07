@@ -1,0 +1,24 @@
+==== Experiment ====
+datetime: 2025-08-07 18:51:09
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BoxingPunchingBag-short
+prompt: A man wearing white tank top practices cooking, flipping pancakes in his garage home gym.
+noise_prior: 0.5
+output_dir: ./outputs/inference/BoxingPunchingBag/noise0.5
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 18:52:13
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BoxingPunchingBag-short
+prompt: A knight equipping armor practices boxing, punching a red heavy bag in his garage home gym.
+noise_prior: 0.5
+output_dir: ./outputs/inference/BoxingPunchingBag/noise0.5
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 18:52:32
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BoxingPunchingBag-short
+prompt: A man wearing white tank top practices boxing, punching a red heavy bag in a boxing ring.
+noise_prior: 0.5
+output_dir: ./outputs/inference/BoxingPunchingBag/noise0.5
+==== End ====
+
