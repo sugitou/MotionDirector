@@ -39,8 +39,8 @@ lora_rank: 32
 train_data:
 
   # The width and height in which you want your training data to be resized to.
-  width: 384
-  height: 384
+  width: 256
+  height: 192
 
   # This will find the closest aspect ratio to your input width and height. 
   # For example, 512x512 width and height with a video of resolution 1280x720 will be resized to 512x256
@@ -56,34 +56,35 @@ train_data:
   frame_step: 1
 
   # The number of frames to sample. The higher this number, the higher the VRAM (acts similar to batch size).
-  n_sample_frames: 16
+  n_sample_frames: 24
   
   # 'single_video'
-  single_video_path: "./test_data/ucf101/Golfswing/v_GolfSwing_g01_c01_8fps.mp4"
+  single_video_path: "/scratch/rs02358/ved_dissertation/Datasets_from_Internet/UCF101/UCF-Benchmark/v_BrushingTeeth_g01_c04.mp4"
 
   # The prompt when using a single video file
-  single_video_prompt: "A person is playing golf on the grass."
+  single_video_prompt: "A young girl with long blonde hair is brushing her teeth in a bathroom."
 
 # Validation data parameters.
 validation_data:
 
   # A custom prompt that is different from your training dataset. 
   prompt:
-  - "A panda is playing golf on the mountain."
-  - "An astronaut is playing golf on the moon."
+  - "A young girl with long blonde hair is washing her face in a bathroom."
+  - "A soldier wearing a helmet is brushing his teeth in a bathroom."
+  - "A young girl with long blonde hair is brushing her teeth in front of the Statue of Liberty."
 
   # Whether or not to sample preview during training (Requires more VRAM).
   sample_preview: True
 
   # The number of frames to sample during validation.
-  num_frames: 16
+  num_frames: 24
 
   # Height and width of validation sample.
-  width: 384
-  height: 384
+  width: 256
+  height: 192
 
   # Number of inference steps when generating the video.
-  num_inference_steps: 30
+  num_inference_steps: 100
 
   # CFG scale
   guidance_scale: 12
@@ -104,7 +105,7 @@ adam_weight_decay: 1e-2
 max_train_steps: 400
 
 # Saves a model every nth step.
-checkpointing_steps: 50
+checkpointing_steps: 100
 
 # How many steps to do for validation if sample_preview is enabled.
 validation_steps: 50

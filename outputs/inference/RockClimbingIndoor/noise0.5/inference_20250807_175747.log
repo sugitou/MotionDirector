@@ -1,0 +1,24 @@
+==== Experiment ====
+datetime: 2025-08-07 17:58:51
+checkpoint_folder: ./outputs/myTrain/train_ucf101_RockClimbingIndoor-short
+prompt: A climber leaps across holds on an indoor climbing wall with a follow cinematic shot.
+noise_prior: 0.5
+output_dir: ./outputs/inference/RockClimbingIndoor/noise0.5
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 17:59:55
+checkpoint_folder: ./outputs/myTrain/train_ucf101_RockClimbingIndoor-short
+prompt: A woman in a maid's costume ascends a challenging indoor climbing wall with a follow cinematic shot.
+noise_prior: 0.5
+output_dir: ./outputs/inference/RockClimbingIndoor/noise0.5
+==== End ====
+
+==== Experiment ====
+datetime: 2025-08-07 18:00:17
+checkpoint_folder: ./outputs/myTrain/train_ucf101_RockClimbingIndoor-short
+prompt: A climber ascends a challenging ice wall with a follow cinematic shot.
+noise_prior: 0.5
+output_dir: ./outputs/inference/RockClimbingIndoor/noise0.5
+==== End ====
+
