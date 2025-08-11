@@ -1,8 +1,0 @@
-==== Experiment ====
-datetime: 2025-08-07 19:57:04
-checkpoint_folder: ./outputs/myTrain/train_ucf101_CleanAndJerk-short
-prompt: A strong man does jumping jacks with perfect form in a gym.
-noise_prior: 0.1
-output_dir: ./outputs/inference/CleanAndJerk/noise0.1
-==== End ====
-
