@@ -5,7 +5,7 @@ python MotionDirector_inference.py \
   --prompt "Two focused fencers in white uniforms duel on a strip inside a business office." \
   --checkpoint_folder ./outputs/myTrain/train_Fencing_80f \
   --checkpoint_index 400 \
-  --noise_prior 0.1 \
+  --noise_prior 0.5 \
   --seed 785490 \
   --num-frames 80 \
   --num-steps 100 \
