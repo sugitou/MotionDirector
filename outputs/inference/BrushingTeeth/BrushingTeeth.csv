@@ -1,0 +1,10 @@
+Timestamp,Filename,Prompt,CLIP Score,PickScore,Temporal Consistency,Embedding Distance,FPS (Video),FPS (Eval),Frames,Resolution,Duration
+2025-08-12 11:08:56,A_crystal_skeleton_is_brushing_its_teeth_in_a_bathroom_0.1.mp4,A crystal skeleton is brushing its teeth in a bathroom,0.4077,22.5528,0.9765,0.5886,8,1,24,256x192,3.00 sec
+2025-08-12 11:09:23,A_crystal_skeleton_is_brushing_its_teeth_in_a_bathroom_0.3.mp4,A crystal skeleton is brushing its teeth in a bathroom,0.3925,22.2069,0.9613,0.6008,8,1,24,256x192,3.00 sec
+2025-08-12 11:09:40,A_crystal_skeleton_is_brushing_its_teeth_in_a_bathroom_0.5.mp4,A crystal skeleton is brushing its teeth in a bathroom,0.2887,19.9652,0.947,0.705,8,1,24,256x192,3.00 sec
+2025-08-12 11:10:11,A_young_girl_with_long_blonde_hair_is_applying_lipstick_to_her_lips_in_a_bathroom_0.1.mp4,A young girl with long blonde hair is applying lipstick to her lips in a bathroom,0.3767,21.5421,0.9697,0.6187,8,1,24,256x192,3.00 sec
+2025-08-12 11:10:23,A_young_girl_with_long_blonde_hair_is_applying_lipstick_to_her_lips_in_a_bathroom_0.3.mp4,A young girl with long blonde hair is applying lipstick to her lips in a bathroom,0.3666,20.3507,0.9802,0.6305,8,1,24,256x192,3.00 sec
+2025-08-12 11:10:35,A_young_girl_with_long_blonde_hair_is_applying_lipstick_to_her_lips_in_a_bathroom_0.5.mp4,A young girl with long blonde hair is applying lipstick to her lips in a bathroom,0.3401,19.9642,0.9696,0.6564,8,1,24,256x192,3.00 sec
+2025-08-12 11:11:07,A_young_girl_with_long_blonde_hair_is_brushing_her_teeth_at_Heathrow_Airport_0.1.mp4,A young girl with long blonde hair is brushing her teeth at Heathrow Airport,0.3492,21.7393,0.9772,0.6475,8,1,24,256x192,3.00 sec
+2025-08-12 11:11:21,A_young_girl_with_long_blonde_hair_is_brushing_her_teeth_at_Heathrow_Airport_0.3.mp4,A young girl with long blonde hair is brushing her teeth at Heathrow Airport,0.3585,22.2282,0.9545,0.6362,8,1,24,256x192,3.00 sec
+2025-08-12 11:11:42,A_young_girl_with_long_blonde_hair_is_brushing_her_teeth_at_Heathrow_Airport_0.5.mp4,A young girl with long blonde hair is brushing her teeth at Heathrow Airport,0.3396,22.0805,0.963,0.6552,8,1,24,256x192,3.00 sec
