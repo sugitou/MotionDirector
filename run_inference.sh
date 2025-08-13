@@ -2,10 +2,10 @@
 
 python MotionDirector_inference.py \
   --model ./models/zeroscope_v2_576w/ \
-  --prompt "A man wearing white tank top practices cooking, flipping pancakes in his garage home gym." \
-  --checkpoint_folder ./outputs/myTrain/train_Boxing_160f \
+  --prompt "Two focused fencers in white uniforms duel on a strip inside a business office." \
+  --checkpoint_folder ./outputs/myTrain/train_Fencing_80f \
   --checkpoint_index 400 \
-  --noise_prior 0.1 \
+  --noise_prior 0.7 \
   --seed 785490 \
   --num-frames 160 \
   --num-steps 100 \
