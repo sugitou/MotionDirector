@@ -1,10 +1,9 @@
 #!/bin/bash
-#!/bin/bash
 set -euo pipefail
 
 # ====== 監視の設定 ======
 INTERVAL=1  # 監視間隔(秒)
-OUTDIR="/parallel_scratch/rs02358/MotionDirector/outputs/myTrain/Lookout/Fencing_160f"
+OUTDIR="/parallel_scratch/rs02358/MotionDirector/outputs/myTrain/Lookout/Boxing_80f"
 mkdir -p "$OUTDIR"
 
 GPU_CSV="$OUTDIR/gpu.csv"             # GPU全体: index, usedMiB, totalMiB, util%, memUtil%
