@@ -5,72 +5,70 @@ declare -A checkpoint_prompts
 
 prompt_text=$(
 cat <<EOL
-A man wearing white tank top practices cooking, flipping pancakes in his garage home gym.
-A knight equipping armor practices boxing, punching a red heavy bag in his garage home gym.
-A man wearing white tank top practices boxing, punching a red heavy bag in a boxing ring.
+A focused woman carefully applies eyeliner with a thin brush in her bathroom, in anime style.
+EOL
+)
+checkpoint_prompts["./outputs/myTrain/train_ucf101_ApplyEyeMakeup-short"]="$prompt_text"
+
+prompt_text=$(
+cat <<EOL
+A climber ascends a challenging indoor climbing wall with a follow cinematic shot, in anime style.
+EOL
+)
+checkpoint_prompts["./outputs/myTrain/train_ucf101_RockClimbingIndoor-short"]="$prompt_text"
+
+prompt_text=$(
+cat <<EOL
+A man wearing white tank top practices boxing, punching a red heavy bag in his garage home gym, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_BoxingPunchingBag-short"]="$prompt_text"
 
 prompt_text=$(
 cat <<EOL
-A man is practising his football dribble on the green front lawn of a brick house.
-A wizard is practising his golf swing on the green front lawn of a brick house.
-A man is practising his golf swing in Times Square New York.
+A man is practising his golf swing on the green front lawn of a brick house, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_GolfSwing-short"]="$prompt_text"
 
 prompt_text=$(
 cat <<EOL
-A skater with a red backpack is handstand walking on a paved road next to a snowy mountain.
-An emperor penguin with a red backpack is carving on a paved road next to a snowy mountain.
-A skater with a red backpack is carving on a paved road in front of Tokyo Skytree.
+A skater with a red backpack is carving on a paved road next to a snowy mountain, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_SkateBoarding-short"]="$prompt_text"
 
 prompt_text=$(
 cat <<EOL
-A young girl with long blonde hair is applying lipstick to her lips in a bathroom.
-A crystal skeleton is brushing its teeth in a bathroom.
-A young girl with long blonde hair is brushing her teeth at Heathrow Airport.
+A young girl with long blonde hair is brushing her teeth in a bathroom, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_BrushingTeeth-short"]="$prompt_text"
 
 prompt_text=$(
 cat <<EOL
-A strong man does jumping jacks with perfect form in a gym.
-A muscular alien performs an impressive snatch, lifting a heavy barbell overhead in a gym.
-A strong man performs an impressive snatch, lifting a heavy barbell overhead in front of Buckingham Palace.
+A strong man performs an impressive snatch, lifting a heavy barbell overhead in a gym, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_CleanAndJerk-short"]="$prompt_text"
 
 prompt_text=$(
 cat <<EOL
-Two focused fencers practice footwork on a strip inside a large sports hall.
-Two focused women in kimonos duel on a strip inside a large sports hall.
-Two focused fencers in white uniforms duel on a strip inside a business office.
+Two focused fencers in white uniforms duel on a strip inside a large sports hall, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_Fencing-short"]="$prompt_text"
 
 prompt_text=$(
 cat <<EOL
-An athletic person does a yoga pose on a grassy hill under a vast blue sky.
-A silver robot holds a steady handstand on a grassy hill under a vast blue sky.
-An athletic person holds a steady handstand on a sandy beach under a few white cloud sky.
+An athletic person holds a steady handstand on a grassy hill under a vast blue sky, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_HandstandWalking-short"]="$prompt_text"
 
 prompt_text=$(
 cat <<EOL
-A rider on horseback jumps over fences in a sandy arena with trees and hills.
-A man riding a zebra navigates an obstacle course in a sandy arena with trees and hills.
-A rider on horseback navigates an obstacle course on the Moon, with Earth visible in the sky.
+A rider on horseback navigates an obstacle course in a sandy arena with trees and hills, in anime style.
 EOL
 )
 checkpoint_prompts["./outputs/myTrain/train_ucf101_HorseRiding-short"]="$prompt_text"

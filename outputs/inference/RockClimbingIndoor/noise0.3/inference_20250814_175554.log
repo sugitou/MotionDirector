@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 17:56:58
+checkpoint_folder: ./outputs/myTrain/train_ucf101_RockClimbingIndoor-short
+prompt: A climber ascends a challenging indoor climbing wall with a follow cinematic shot, in anime style.
+noise_prior: 0.3
+output_dir: ./outputs/inference/RockClimbingIndoor/noise0.3
+==== End ====
+

@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 17:54:49
+checkpoint_folder: ./outputs/myTrain/train_ucf101_SkateBoarding-short
+prompt: A skater with a red backpack is carving on a paved road next to a snowy mountain, in anime style.
+noise_prior: 0.5
+output_dir: ./outputs/inference/SkateBoarding/noise0.5
+==== End ====
+

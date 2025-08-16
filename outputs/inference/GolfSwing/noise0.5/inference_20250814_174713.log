@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 17:48:18
+checkpoint_folder: ./outputs/myTrain/train_ucf101_GolfSwing-short
+prompt: A man is practising his golf swing on the green front lawn of a brick house, in anime style.
+noise_prior: 0.5
+output_dir: ./outputs/inference/GolfSwing/noise0.5
+==== End ====
+

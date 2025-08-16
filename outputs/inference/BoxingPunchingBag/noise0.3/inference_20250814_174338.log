@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 17:43:58
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BoxingPunchingBag-short
+prompt: A man wearing white tank top practices boxing, punching a red heavy bag in his garage home gym, in anime style.
+noise_prior: 0.3
+output_dir: ./outputs/inference/BoxingPunchingBag/noise0.3
+==== End ====
+

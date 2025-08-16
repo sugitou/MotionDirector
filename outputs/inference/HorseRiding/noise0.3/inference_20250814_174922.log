@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 17:50:27
+checkpoint_folder: ./outputs/myTrain/train_ucf101_HorseRiding-short
+prompt: A rider on horseback navigates an obstacle course in a sandy arena with trees and hills, in anime style.
+noise_prior: 0.3
+output_dir: ./outputs/inference/HorseRiding/noise0.3
+==== End ====
+

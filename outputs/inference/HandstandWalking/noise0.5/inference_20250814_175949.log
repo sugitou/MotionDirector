@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 18:00:53
+checkpoint_folder: ./outputs/myTrain/train_ucf101_HandstandWalking-short
+prompt: An athletic person holds a steady handstand on a grassy hill under a vast blue sky, in anime style.
+noise_prior: 0.5
+output_dir: ./outputs/inference/HandstandWalking/noise0.5
+==== End ====
+

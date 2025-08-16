@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 18:05:11
+checkpoint_folder: ./outputs/myTrain/train_ucf101_BrushingTeeth-short
+prompt: A young girl with long blonde hair is brushing her teeth in a bathroom, in anime style.
+noise_prior: 0.1
+output_dir: ./outputs/inference/BrushingTeeth/noise0.1
+==== End ====
+

@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 17:37:10
+checkpoint_folder: ./outputs/myTrain/train_ucf101_CleanAndJerk-short
+prompt: A strong man performs an impressive snatch, lifting a heavy barbell overhead in a gym, in anime style.
+noise_prior: 0.1
+output_dir: ./outputs/inference/CleanAndJerk/noise0.1
+==== End ====
+

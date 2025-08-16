@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 17:41:29
+checkpoint_folder: ./outputs/myTrain/train_ucf101_ApplyEyeMakeup-short
+prompt: A focused woman carefully applies eyeliner with a thin brush in her bathroom, in anime style.
+noise_prior: 0.3
+output_dir: ./outputs/inference/ApplyEyeMakeup/noise0.3
+==== End ====
+

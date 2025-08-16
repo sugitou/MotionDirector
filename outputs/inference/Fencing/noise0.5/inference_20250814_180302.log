@@ -1,0 +1,8 @@
+==== Experiment ====
+datetime: 2025-08-14 18:04:07
+checkpoint_folder: ./outputs/myTrain/train_ucf101_Fencing-short
+prompt: Two focused fencers in white uniforms duel on a strip inside a large sports hall, in anime style.
+noise_prior: 0.5
+output_dir: ./outputs/inference/Fencing/noise0.5
+==== End ====
+
