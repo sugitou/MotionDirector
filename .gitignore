@@ -3,5 +3,5 @@ __pycache__/
 
 modivenv/
 models/
-outputs/myTrain/old
-outputs/myTrain/Lookout
+outputs/myTrain/old/
+outputs/myTrain/Lookout/
