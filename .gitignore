@@ -6,3 +6,4 @@ models/
 outputs/myTrain/
 cut_video.py
 vrs2mp4.py
+run_train_tmp.sh
