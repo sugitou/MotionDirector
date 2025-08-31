@@ -18,6 +18,134 @@ decord.bridge.set_bridge('torch')
 from torch.utils.data import Dataset
 from einops import rearrange, repeat
 
+import cv2
+
+
+# Interpolation for temporal resampling
+def time_resample_linear(video: torch.Tensor, target_frames: int) -> torch.Tensor:
+    """
+    video: [N, C, H, W] (uint8/float いずれも可)
+    target_frames: 出力フレーム数T
+    return: [T, C, H, W] (float32)
+    """
+    assert video.ndim == 4, "video must be [N, C, H, W]"
+    N, C, H, W = video.shape
+    T = int(target_frames)
+    assert T > 0, "target_frames must be > 0"
+
+    if N == T:
+        return video if video.dtype == torch.float32 else video.to(torch.float32)
+    if N == 1:
+        return video.to(torch.float32).repeat(T, 1, 1, 1)
+
+    dev = video.device
+    vid = video.to(torch.float32, copy=False)
+
+    u = torch.linspace(0.0, float(N - 1), steps=T, device=dev)  # [0, N-1]を等分
+    i = torch.floor(u).to(torch.long)
+    j = torch.clamp(i + 1, max=N - 1)
+    a = (u - i.to(u.dtype)).view(T, 1, 1, 1)  # [T,1,1,1]
+
+    out = (1.0 - a) * vid[i] + a * vid[j]
+    return out
+
+
+# Flow-based temporal resampling
+def time_resample_flow(video: torch.Tensor, target_frames: int,
+                       algo: str = "farneback",
+                       symmetric_blend: bool = True) -> torch.Tensor:
+    """
+    video: [N, C, H, W] (uint8/float) 0..255 想定
+    target_frames: 出力フレーム数 T
+    algo: "farneback"（軽量・依存なし）
+    symmetric_blend:
+        True  -> Fiを前方に a 倍ワープ、Fjを後方に(1-a)倍ワープして時間重みでブレンド
+        False -> Fi を前方に a 倍だけワープして線形ブレンド（片側のみ; 速い）
+
+    戻り値: [T, C, H, W] (float32, 0..255)
+    """
+    assert video.ndim == 4
+    N, C, H, W = video.shape
+    T = int(target_frames)
+    assert T > 0
+
+    # 早期リターン
+    if N == T:
+        return video.to(torch.float32)
+    if N == 1:
+        return video.to(torch.float32).repeat(T, 1, 1, 1)
+
+    # Tensor -> numpy (HxWxC, BGRじゃなくてもOK。cv2.remapは色順気にしない)
+    vid_np = video.detach().cpu().to(torch.uint8).permute(0, 2, 3, 1).numpy()  # [N, H, W, C]
+    # 光フローはグレイでOK
+    gray = [cv2.cvtColor(f, cv2.COLOR_RGB2GRAY) if vid_np.shape[3] == 3 else f[...,0] for f in vid_np]
+
+    # 事前にペアごとのフローを計算（i->i+1 と (i+1)->i）
+    flows_fwd = []  # [N-1, H, W, 2]
+    flows_bwd = []  # [N-1, H, W, 2]
+    # Farneback推奨設定（256x192程度なら十分高速）
+    fb_params = dict(pyr_scale=0.5, levels=3, winsize=15,
+                     iterations=3, poly_n=5, poly_sigma=1.2, flags=0)
+
+    for i in range(N - 1):
+        g0, g1 = gray[i], gray[i + 1]
+        flow_f = cv2.calcOpticalFlowFarneback(g0, g1, None, **fb_params)  # g0 -> g1
+        flow_b = cv2.calcOpticalFlowFarneback(g1, g0, None, **fb_params)  # g1 -> g0
+        flows_fwd.append(flow_f)
+        flows_bwd.append(flow_b)
+
+    flows_fwd = np.stack(flows_fwd, axis=0)  # [N-1, H, W, 2]
+    flows_bwd = np.stack(flows_bwd, axis=0)  # [N-1, H, W, 2]
+
+    # 座標グリッド（remap用）
+    grid_x, grid_y = np.meshgrid(np.arange(W, dtype=np.float32),
+                                 np.arange(H, dtype=np.float32))
+
+    # 出力を合成
+    out = np.empty((T, H, W, C), dtype=np.float32)
+    for t in range(T):
+        u = (N - 1) * t / max(1, T - 1)      # 連続時刻 u ∈ [0, N-1]
+        i = int(np.floor(u))
+        if i >= N - 1:
+            out[t] = vid_np[-1].astype(np.float32)
+            continue
+        a = float(u - i)                     # 0..1
+        j = i + 1
+
+        # 参照フレーム
+        Fi = vid_np[i].astype(np.float32)    # [H,W,C]
+        Fj = vid_np[j].astype(np.float32)
+
+        # フロー取得
+        fwd = flows_fwd[i]                   # [H,W,2] (x,y の順)
+        if symmetric_blend:
+            bwd = flows_bwd[i]
+        else:
+            bwd = None
+
+        # 前方/後方のワープ量をスケール
+        map_x_i = grid_x + a * fwd[..., 0]
+        map_y_i = grid_y + a * fwd[..., 1]
+
+        if symmetric_blend:
+            map_x_j = grid_x + (1.0 - a) * bwd[..., 0]
+            map_y_j = grid_y + (1.0 - a) * bwd[..., 1]
+
+        # remap（境界は複製でOK）
+        warp_i = cv2.remap(Fi, map_x_i, map_y_i, interpolation=cv2.INTER_LINEAR,
+                           borderMode=cv2.BORDER_REPLICATE)
+        if symmetric_blend:
+            warp_j = cv2.remap(Fj, map_x_j, map_y_j, interpolation=cv2.INTER_LINEAR,
+                               borderMode=cv2.BORDER_REPLICATE)
+            # 時間重みでブレンド（aに応じてFi→Fjへ遷移）
+            out[t] = (1.0 - a) * warp_i + a * warp_j
+        else:
+            # 片側のみ：Fiを未来側へ動かし、Fjと線形ブレンド
+            out[t] = (1.0 - a) * warp_i + a * Fj
+
+    # numpy -> torch [T,C,H,W]
+    return torch.from_numpy(out).permute(0, 3, 1, 2)  # float32
+
 
 def get_prompt_ids(prompt, tokenizer):
     prompt_ids = tokenizer(
@@ -191,6 +319,12 @@ class VideoJsonDataset(Dataset):
         video = rearrange(frames, "f h w c -> f c h w")
 
         if resize is not None: video = resize(video)
+        # Add time resampling
+        if video.shape[0] != self.n_sample_frames:
+            video = time_resample_linear(video, self.n_sample_frames)
+            #video = time_resample_flow(video, self.n_sample_frames, symmetric_blend=True)
+
+
         return video
 
     def process_video_wrapper(self, vid_path):
@@ -301,24 +435,126 @@ class SingleVideoDataset(Dataset):
 
         self.width = width
         self.height = height
+    
     def create_video_chunks(self):
         vr = decord.VideoReader(self.single_video_path)
-        vr_range = range(0, len(vr), self.frame_step)
+        vr_range = list(range(0, len(vr), self.frame_step))  # 有効インデックス列
 
-        self.frames = list(self.chunk(vr_range, self.n_sample_frames))
+        self.frames = []
+        size = self.n_sample_frames
+        # 端数チャンクもそのまま保持（ここではpadしない）
+        for i in range(0, len(vr_range), size):
+            part = vr_range[i:i+size]          # 最後は size 未満になり得る
+            if len(part) > 0:
+                self.frames.append(tuple(part))
         return self.frames
-
-    def chunk(self, it, size):
-        it = iter(it)
-        return iter(lambda: tuple(islice(it, size)), ())
-
+    
     def get_frame_batch(self, vr, resize=None):
-        index = self.index
-        frames = vr.get_batch(self.frames[self.index])
-        video = rearrange(frames, "f h w c -> f c h w")
+        # 取り出す実フレームindex列
+        idxs = list(self.frames[self.index])
+        idxs = np.clip(np.array(idxs, dtype=np.int64), 0, len(vr) - 1)
 
-        if resize is not None: video = resize(video)
+        frames = vr.get_batch(idxs)                          # [f, H, W, C] (uint8)
+        video  = rearrange(frames, "f h w c -> f c h w")     # [f, C, H, W]
+
+        # 画質面の安定のため：空間リサイズ → 時間補間 の順がおすすめ
+        if resize is not None:
+            video = resize(video)
+
+        # ★ ここで常に n_sample_frames に時間リサンプリング（interp）
+        if video.shape[0] != self.n_sample_frames:
+            video = time_resample_linear(video, self.n_sample_frames)
+            #video = time_resample_flow(video, self.n_sample_frames, symmetric_blend=True)
+
+        else:
+            if video.dtype != torch.float32:
+                video = video.to(torch.float32)
+
         return video
+    
+    # def chunk_full(self, it, size, keep_tail=True, pad_mode="pad_last"):
+    #     """
+    #     it: 反復可能（フレームindexのrangeなど）
+    #     size: 1チャンクのフレーム数（= n_sample_frames）
+    #     keep_tail: 端数チャンクを保持するか
+    #     pad_mode:
+    #     - "pad_last":  末尾フレームindexを複製して size に揃える（堅い）
+    #     - "loop":      先頭からループして補う（軽い繰り返しを許容）
+    #     - None:        端数はそのまま（サイズ未満のタプルのまま返す）
+    #     """
+    #     it = list(it)
+    #     chunks = []
+    #     n = len(it)
+
+    #     if n == 0:
+    #         return []
+
+    #     for i in range(0, n, size):
+    #         part = it[i:i+size]
+    #         if len(part) == size:
+    #             chunks.append(tuple(part))
+    #         else:
+    #             if not keep_tail:
+    #                 continue
+    #             if pad_mode == "pad_last":
+    #                 pad = [part[-1]] * (size - len(part))
+    #                 part = part + pad
+    #             elif pad_mode == "loop":
+    #                 need = size - len(part)
+    #                 loop_take = min(need, len(it))
+    #                 part = part + it[:loop_take]
+    #                 if len(part) < size:
+    #                     part = part + [part[-1]] * (size - len(part))
+    #             elif pad_mode is None:
+    #                 # サイズ未満の端数をそのまま保持
+    #                 pass
+    #             else:
+    #                 raise ValueError(f"Unknown pad_mode: {pad_mode}")
+    #             chunks.append(tuple(part))
+    #     return chunks
+    
+    # def create_video_chunks(self):
+    #     vr = decord.VideoReader(self.single_video_path)
+    #     vr_range = range(0, len(vr), self.frame_step)
+
+    #     # 端数も保持し、既定では pad して n_sample_frames に揃える
+    #     self.frames = self.chunk_full(
+    #         vr_range,
+    #         self.n_sample_frames,
+    #         keep_tail=True,
+    #         pad_mode="pad_last",   # 必要に応じて "loop" や None に変更可
+    #     )
+    #     return self.frames
+    
+    # def get_frame_batch(self, vr, resize=None):
+    #     # self.frames[self.index] は tuple（または短いtuple）を想定
+    #     idxs = np.array(self.frames[self.index], dtype=np.int64)
+    #     idxs = np.clip(idxs, 0, len(vr) - 1)
+    #     frames = vr.get_batch(idxs)
+    #     video = rearrange(frames, "f h w c -> f c h w")
+    #     if resize is not None:
+    #         video = resize(video)
+    #     return video
+    
+    # Original
+    # def create_video_chunks(self):
+    #     vr = decord.VideoReader(self.single_video_path)
+    #     vr_range = range(0, len(vr), self.frame_step)
+
+    #     self.frames = list(self.chunk(vr_range, self.n_sample_frames))
+    #     return self.frames
+
+    # def chunk(self, it, size):
+    #     it = iter(it)
+    #     return iter(lambda: tuple(islice(it, size)), ())
+
+    # def get_frame_batch(self, vr, resize=None):
+    #     index = self.index
+    #     frames = vr.get_batch(self.frames[self.index])
+    #     video = rearrange(frames, "f h w c -> f c h w")
+
+    #     if resize is not None: video = resize(video)
+    #     return video
 
     def get_frame_buckets(self, vr):
         h, w, c = vr[0].shape
@@ -520,6 +756,12 @@ class VideoFolderDataset(Dataset):
         video = rearrange(video, "f h w c -> f c h w")
 
         if resize is not None: video = resize(video)
+        # Add time resampling
+        if video.shape[0] != self.n_sample_frames:
+            video = time_resample_linear(video, self.n_sample_frames)
+            #video = time_resample_flow(video, self.n_sample_frames, symmetric_blend=True)
+
+
         return video, vr
         
     def process_video_wrapper(self, vid_path):

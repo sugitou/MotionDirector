@@ -56,28 +56,28 @@ train_data:
   frame_step: 1
 
   # The number of frames to sample. The higher this number, the higher the VRAM (acts similar to batch size).
-  n_sample_frames: 80
+  n_sample_frames: 120
   
   # 'single_video'
-  single_video_path: "/parallel_scratch/rs02358/Reference_Videos/v_RockClimbingIndoor_g13_c03.mp4"
+  single_video_path: "/parallel_scratch/rs02358/Reference_Videos/v_HandstandWalking_g14_c03.mp4"
 
   # The prompt when using a single video file
-  single_video_prompt: "A climber ascends a challenging indoor climbing wall with a follow cinematic shot."
+  single_video_prompt: "An athletic person holds a steady handstand on a grassy hill under a vast blue sky."
 
 # Validation data parameters.
 validation_data:
 
   # A custom prompt that is different from your training dataset. 
   prompt:
-  - "A climber descends a challenging indoor climbing wall with a follow cinematic shot."
-  - "A monkey ascends a challenging indoor climbing wall with a follow cinematic shot."
-  - "A climber ascends a challenging outdoor rock wall with a follow cinematic shot."
+  - "An athletic person walks on a grassy hill under a vast blue sky."
+  - "A playful dog holds a steady handstand on a grassy hill under a vast blue sky."
+  - "An athletic person holds a steady handstand on a snowy field under a cloudy sky."
 
   # Whether or not to sample preview during training (Requires more VRAM).
   sample_preview: True
 
   # The number of frames to sample during validation.
-  num_frames: 80
+  num_frames: 120
 
   # Height and width of validation sample.
   width: 256

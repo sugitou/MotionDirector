@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ====== 監視の設定 ======
 INTERVAL=1  # 監視間隔(秒)
-OUTDIR="/parallel_scratch/rs02358/MotionDirector/outputs/myTrain/Lookout/Climbing_80f"
+OUTDIR="/parallel_scratch/rs02358/MotionDirector/outputs/myTrain/Lookout/Hand_120f"
 mkdir -p "$OUTDIR"
 
 GPU_CSV="$OUTDIR/gpu.csv"             # GPU全体: index, usedMiB, totalMiB, util%, memUtil%
@@ -62,7 +62,7 @@ trap cleanup EXIT INT TERM
 
 # ====== あなたの元の実行コマンド ======
 python MotionDirector_train.py \
-    --config ./configs/config_single_video_HPC.yaml &
+    --config ./configs/config_single_video_HPC_tmp.yaml &
 
 TARGET_PID=$!
 

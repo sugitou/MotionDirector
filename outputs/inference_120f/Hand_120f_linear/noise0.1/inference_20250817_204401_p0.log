@@ -1,0 +1,17 @@
+[2025-08-17 20:44:10,203] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Initializing the conversion map
+Traceback (most recent call last):
+  File "MotionDirector_inference.py", line 258, in <module>
+    latents_path = f"{latents_folder}/{random.choice(os.listdir(latents_folder))}"
+FileNotFoundError: [Errno 2] No such file or directory: './outputs/myTrain/train_Hand_120f_linear/cached_latents'
+==== Experiment ====
+datetime: 2025-08-17 20:44:18
+checkpoint_folder: ./outputs/myTrain/train_Hand_120f_linear
+prompt_index: 0
+prompt: A silver robot holds a steady handstand on a grassy hill under a vast blue sky.
+noise_prior: 0.1
+num_frames: 80
+num_steps: 100
+output_dir: ./outputs/inference_120f/Hand_120f_linear/noise0.1
+==== End ====
+
