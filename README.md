@@ -15,6 +15,8 @@ This fork mainly highlights the additional implementations listed above.
 
 ---
 
+# Original README
+
 <p align="center">
 
   <h2 align="center">MotionDirector: Motion Customization of Text-to-Video Diffusion Models</h2>
