@@ -7,7 +7,13 @@ Please refer to the original repository and paper for the baseline implementatio
 ### Additional Changes
 - Added bash scripts for **LoRA training and inference**
 - Implemented **linear interpolation for long-duration video generation**
+- Included all experimental results in the **outputs** folder  
+  *(LoRA-trained models are excluded due to file size limitations)*
 
+→ For installation and usage instructions, please refer to the **Original README** provided below.  
+This fork mainly highlights the additional implementations listed above.
+
+---
 
 <p align="center">
 
