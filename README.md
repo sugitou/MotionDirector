@@ -1,3 +1,14 @@
+# ⚠️ Notice
+
+This repository is a **fork** of the original [MotionDirector](https://github.com/showlab/MotionDirector) project.  
+It includes additional implementations and modifications by **Raito Sugihara** for research purposes (MSc Dissertation, University of Surrey, 2025).  
+Please refer to the original repository and paper for the baseline implementation.
+
+### Additional Changes
+- Added bash scripts for **LoRA training and inference**
+- Implemented **linear interpolation for long-duration video generation**
+
+
 <p align="center">
 
   <h2 align="center">MotionDirector: Motion Customization of Text-to-Video Diffusion Models</h2>
