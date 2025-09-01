@@ -1,8 +1,8 @@
 # ⚠️ Notice
 
 This repository is a **fork** of the original [MotionDirector](https://github.com/showlab/MotionDirector) project.  
-It includes additional implementations and modifications by **Raito Sugihara** for research purposes (MSc Dissertation, University of Surrey, 2025).  
-Please refer to the original repository and paper for the baseline implementation.
+It includes additional implementations and modifications for research purposes, developed as part of the MSc Dissertation:  
+**"Video Editing using Diffusion Models: Techniques and Challenges" (University of Surrey, 2025).**
 
 ### Additional Changes
 - Added bash scripts for **LoRA training and inference**
